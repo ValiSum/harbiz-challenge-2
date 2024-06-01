@@ -13,18 +13,14 @@ if (Meteor.isClient) {
   Template.leaderboard.helpers({
     players: function () {
       return Players.find({}, { sort: { score: -1, name: 1 } });
-    },
-    selectedName: function () {
-      const player = Players.findOne(Session.get("selectedPlayer"));
-      return player && player.name;
     }
   });
 
-  Template.leaderboard.events({
-    'click .inc': function () {
-      Players.update(Session.get("selectedPlayer"), {$inc: {score: 5}});
-    }
-  });
+  // Template.leaderboard.events({
+  //   'click .inc': function () {
+  //     Players.update(Session.get("selectedPlayer"), {$inc: {score: 5}});
+  //   }
+  // });
 
   Template.player.helpers({
     selected: function () {
@@ -34,8 +30,32 @@ if (Meteor.isClient) {
 
   Template.player.events({
     'click': function () {
+      const { category } = Template.parentData(1);
+
       Session.set("selectedPlayer", this._id);
+      Session.set("selectedName", this.name);
+      console.log(category);
+      switch (category) {
+        case 'scientists':
+          Session.set('selectedCategory', 'scientist');
+          Session.set('selectedPoints', 5);
+          break;
+        case 'athletes':
+          Session.set('selectedCategory', 'athlete');
+          Session.set('selectedPoints', 10);
+          break;
+        case 'actors':
+          Session.set('selectedCategory', 'actor');
+          Session.set('selectedPoints', 15);
+          break;
+      }
     }
+  });
+
+  Template.details.helpers({
+    selectedName: () => Session.get("selectedName"),
+    selectedCategory: () => Session.get('selectedCategory'),
+    points: () => Session.get('selectedPoints'),
   });
 }
 
