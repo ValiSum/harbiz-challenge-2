@@ -69,7 +69,7 @@ body {
   width: 100%;
 }
 
-.player {
+.character {
   border-bottom: 1px solid #f1f1f1;
   cursor: pointer;
   padding: .5em 0;
@@ -79,7 +79,7 @@ body {
   border-left: 4px solid white;
 }
 
-.player:before {
+.character:before {
   color: #999;
   content: counter(ol-counter);
   counter-increment: ol-counter;
@@ -91,20 +91,20 @@ body {
   width: 3em;
 }
 
-.player .avatar {
+.character .avatar {
   display: inline-block;
   margin-right: 1em;
   vertical-align: middle;
 }
 
-.player .name {
+.character .name {
   display: inline-block;
   font-size: 1.25em;
   font-weight: 300;
   vertical-align: middle;
 }
 
-.player .score {
+.character .score {
   color: #333;
   display: block;
   float: right;
@@ -114,12 +114,12 @@ body {
   padding-right: 1.25em;
 }
 
-.player.selected {
+.character.selected {
   background-color: #fefff4;
   border-left: #eb5f3a 4px solid;
 }
 
-.player:hover {
+.character:hover {
   background-color: #fefff4;
 }
 
@@ -198,11 +198,11 @@ body {
     margin: 2em 0 4em 0;
   }
 
-  .player:hover {
+  .character:hover {
     background-color: inherit;
   }
 
-  .player.selected:hover {
+  .character.selected:hover {
     background-color: #fefff4;
   }
 }

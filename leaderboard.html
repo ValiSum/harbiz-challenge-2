@@ -29,13 +29,13 @@
 <template name="leaderboard">
   <ol class="leaderboard">
     {{#each characters}}
-      {{> player}}
+      {{> character}}
     {{/each}}
   </ol>
 </template>
 
-<template name="player">
-  <li class="player {{selected}}">
+<template name="character">
+  <li class="character {{selected}}">
     <span class="name">{{name}}</span>
     <span class="score">{{score}}</span>
   </li>
@@ -48,6 +48,6 @@
       <button class="inc">Add {{points}} points</button>
     </div>
   {{else}}
-    <div class="message">Click a player to select</div>
+    <div class="message">Click a character to select</div>
   {{/if}}
 </template>

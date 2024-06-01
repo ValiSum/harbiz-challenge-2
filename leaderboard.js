@@ -29,17 +29,17 @@ if (Meteor.isClient) {
   //   }
   // });
 
-  Template.player.helpers({
+  Template.character.helpers({
     selected: function () {
-      return Session.equals("selectedPlayer", this._id) ? "selected" : '';
+      return Session.equals("selectedCharacter", this._id) ? "selected" : '';
     }
   });
 
-  Template.player.events({
+  Template.character.events({
     'click': function () {
       const category = Template.parentData(1).category;
 
-      Session.set("selectedPlayer", this._id);
+      Session.set("selectedCharacter", this._id);
       Session.set("selectedName", this.name);
       console.log(category);
       switch (category) {
@@ -66,7 +66,7 @@ if (Meteor.isClient) {
   });
 }
 
-// On server startup, create some players if the database is empty.
+// On server startup, create some characters if the database is empty.
 if (Meteor.isServer) {
   Meteor.startup(function () {
     if (Scientists.find().count() === 0) {
