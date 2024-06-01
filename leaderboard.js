@@ -23,12 +23,6 @@ if (Meteor.isClient) {
     }
   });
 
-  // Template.leaderboard.events({
-  //   'click .inc': function () {
-  //     Players.update(Session.get("selectedPlayer"), {$inc: {score: 5}});
-  //   }
-  // });
-
   Template.character.helpers({
     selected: function () {
       return Session.equals("selectedCharacter", this._id) ? "selected" : '';
@@ -38,24 +32,28 @@ if (Meteor.isClient) {
   Template.character.events({
     'click': function () {
       const category = Template.parentData(1).category;
+      let characterType;
+      let points;
+
+      switch (category) {
+        case 'scientists':
+          characterType = 'scientist';
+          points = 5;
+          break;
+        case 'athletes':
+          characterType = 'athlete';
+          points = 10;
+          break;
+        case 'actors':
+          characterType = 'actor';
+          points = 15;
+          break;
+      }
 
       Session.set("selectedCharacter", this._id);
       Session.set("selectedName", this.name);
-      console.log(category);
-      switch (category) {
-        case 'scientists':
-          Session.set('selectedCategory', 'scientist');
-          Session.set('selectedPoints', 5);
-          break;
-        case 'athletes':
-          Session.set('selectedCategory', 'athlete');
-          Session.set('selectedPoints', 10);
-          break;
-        case 'actors':
-          Session.set('selectedCategory', 'actor');
-          Session.set('selectedPoints', 15);
-          break;
-      }
+      Session.set('selectedCategory', characterType);
+      Session.set('selectedPoints', points);
     }
   });
 
@@ -63,6 +61,26 @@ if (Meteor.isClient) {
     selectedName: () => Session.get("selectedName"),
     selectedCategory: () => Session.get('selectedCategory'),
     points: () => Session.get('selectedPoints'),
+  });
+
+  Template.details.events({
+    'click .inc': () => {
+      const category = Session.get('selectedCategory');
+      const selectedCharacterId = Session.get("selectedCharacter");
+      const points = Session.get('selectedPoints');
+      switch (category) {
+        case 'scientist':
+          Scientists.update(selectedCharacterId, { $inc: { score: points } });
+          break;
+        case 'athlete':
+          Athletes.update(selectedCharacterId, { $inc: { score: points } });
+          break;
+        case 'actor':
+          Actors.update(selectedCharacterId, { $inc: { score: points } });
+          break;
+      }
+
+    }
   });
 }
 
