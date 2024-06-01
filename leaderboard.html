@@ -8,8 +8,21 @@
   <div class="outer">
     <div class="logo"></div>
     <h1 class="title">Leaderboard</h1>
-    <div class="subtitle">Select a scientist to give them points</div>
-    {{> leaderboard}}
+    <div class="row">
+      <div class="column">
+        <div class="subtitle">Select a scientist to give them points</div>
+        {{> leaderboard category="scientists"}}
+      </div>
+      <div class="column">
+        <div class="subtitle">Select an athlete to give them points</div>
+        {{> leaderboard category="athletes"}}
+      </div>
+      <div class="column">
+        <div class="subtitle">Select an actor to give them points</div>
+        {{> leaderboard category="actors"}}
+      </div>
+    </div>
+    {{> details}}
   </div>
 </body>
 
@@ -19,15 +32,6 @@
       {{> player}}
     {{/each}}
   </ol>
-
-  {{#if selectedName}}
-    <div class="details">
-      <div class="name">{{selectedName}}</div>
-      <button class="inc">Add 5 points</button>
-    </div>
-  {{else}}
-    <div class="message">Click a player to select</div>
-  {{/if}}
 </template>
 
 <template name="player">
@@ -37,3 +41,13 @@
   </li>
 </template>
 
+<template name="details">
+  {{#if selectedName}}
+    <div class="details">
+      <div class="name">{{selectedName}}</div>
+      <button class="inc">Add {{points}} points</button>
+    </div>
+  {{else}}
+    <div class="message">Click a player to select</div>
+  {{/if}}
+</template>
